@@ -3,17 +3,18 @@ import Form from "./components/Form";
 import "./App.css";
 import schema from "./validation/FormSchema";
 import axios from "axios";
-import { validate } from "@babel/types";
+import * as yup from "yup";
+import User from "./components/User";
 
 const initialFormValues = {
-  name: "",
+  userName: "",
   email: "",
   password: "",
   TOS: false,
 };
 
 const initialFormErrors = {
-  name: "",
+  userName: "",
   email: "",
   password: "",
 };
@@ -41,43 +42,62 @@ function App() {
     axios
       .post("https://reqres.in/api/users", newUser)
       .then((res) => {
-        console.log(res);
+        setUsers([res.data, ...users]);
       })
       .catch((err) => console.error(err));
+
+    setFormValues(initialFormValues);
   };
 
-  const formSubmit = () => {
-    console.log(formValues);
-    const newUser = {
-      name: formValues.name,
-      email: formValues.email,
-      password: formValues.password,
-      TOS: formValues.TOS,
-    };
-    postNewUser([...users, newUser]);
+  const validate = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(() => setError({ ...error, [name]: "" }))
+      .catch((err) => setError({ ...error, [name]: err.errors[0] }));
   };
-  //validate inputs
-  // const validate = () => {
-  //   return;
-  // }
 
   const formChange = (name, value) => {
     validate(name, value);
     setFormValues({ ...formValues, [name]: value });
   };
 
+  const formSubmit = () => {
+    const newUser = {
+      userName: formValues.userName.trim(),
+      email: formValues.email.trim(),
+      password: formValues.password.trim(),
+      TOS: formValues.TOS,
+    };
+    postNewUser(newUser);
+  };
+
   useEffect(() => {
     getUsers();
   }, []);
-  // disabled button changing
-  // useEffect(() => {
 
-  // }, [formValues]);
+  useEffect(() => {
+    schema.isValid(formValues).then((valid) => setDisabled(!valid));
+  }, [formValues]);
 
   return (
     <div className="App">
-      <h1> hi </h1>
-      {/* <Form values={users} submit={formSubmit} change={formChange} disabled={disabled} error={error} /> */}
+      <header>
+        <h1>Login Page</h1>
+      </header>
+
+      <Form
+        values={users}
+        submit={formSubmit}
+        change={formChange}
+        disabled={disabled}
+        error={error}
+      />
+      <div className="mapped-users">
+        {users.map((user) => {
+          return <User key={user.id} details={user} />;
+        })}
+      </div>
     </div>
   );
 }
