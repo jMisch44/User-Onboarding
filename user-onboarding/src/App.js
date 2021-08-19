@@ -18,6 +18,8 @@ const initialFormValues = {
 
 const initialFormErrors = {
   userName: "",
+  first_name: "",
+  last_name: "",
   email: "",
   password: "",
   role: "",
@@ -25,15 +27,15 @@ const initialFormErrors = {
 const initialUsers = [];
 const initialDisabled = false;
 
-// values, submit, change, disabled, error
-
 function App() {
-  const [formValues, setFormValues] = useState(initialFormValues);
-  const [users, setUsers] = useState(initialUsers);
-  const [error, setError] = useState(initialFormErrors);
-  const [disabled, setDisabled] = useState(initialDisabled);
+  //error, formValues, and disabled aren't necessary here
+  const [formValues, setFormValues] = useState(initialFormValues); //slice of state to keep track of the form changes
+  const [users, setUsers] = useState(initialUsers); //slice of state for getting user data from database
+  const [formError, setFormError] = useState(initialFormErrors); //slice of state to keep track of errors
+  const [disabled, setDisabled] = useState(initialDisabled); //keep track of submit button with slice of state
 
   const getUsers = () => {
+    //getting data from database and setting to users
     axios
       .get("https://reqres.in/api/users")
       .then((res) => {
@@ -43,6 +45,7 @@ function App() {
   };
 
   const postNewUser = (newUser) => {
+    //posting user info to the database. resetting formvalues to be empty again
     axios
       .post("https://reqres.in/api/users", newUser)
       .then((res) => {
@@ -54,19 +57,22 @@ function App() {
   };
 
   const validate = (name, value) => {
-    yup
-      .reach(schema, name)
-      .validate(value)
-      .then(() => setError({ ...error, [name]: "" }))
-      .catch((err) => setError({ ...error, [name]: err.errors[0] }));
+    yup //library
+      .reach(schema, name) //reach into schema to compare name to the template (name = name of form values)
+      .validate(value) //validate with the values being typed in compared to schema
+      .then(() => setFormError({ ...formError, [name]: "" })) //setting error message blank, spread so you check all fields
+      .catch((err) => setFormError({ ...formError, [name]: err.errors[0] })); //errors is a property in the error object
   };
 
   const formChange = (name, value) => {
-    validate(name, value);
-    setFormValues({ ...formValues, [name]: value });
+    //checking if a new character is input. It's passed as prop. this gets called inside the event handler for the onChange in form. OnChange raises the event, handleChange handles the event. Inside of handleChange we call input change
+    validate(name, value); //same as above
+    setFormValues({ ...formValues, [name]: value }); //same as error but for formvalues
   };
 
   const formSubmit = () => {
+    //want to account for all fields most likely. onSumbit this will all be transferred to the server, which connects to the database
+    //creating the new item
     const newUser = {
       userName: formValues.userName.trim(),
       first_name: formValues["first_name"].trim(),
@@ -74,19 +80,22 @@ function App() {
       email: formValues.email.trim(),
       password: formValues.password.trim(),
       role: formValues.role,
-      TOS: formValues.TOS,
+      TOS: true,
     };
-    postNewUser(newUser);
+    postNewUser(newUser); //invoking postNewUser (the post request), with the newUser as argument
   };
 
   useEffect(() => {
-    getUsers();
+    //when app first mounts this gets called. this will only run the first time App gets mounted. the useEffect is exclusive to the component it is called in.
+    getUsers(); //the  actual calling of getUsers happens here. we are calling the getUsers function that is getting all users from the for the database and setting them. only happens once
   }, []);
 
   useEffect(() => {
-    schema.isValid(formValues).then((valid) => setDisabled(!valid));
-  }, [formValues]);
+    //being run on each character input and if the value is valid then set disabled to opposite boolean
+    schema.isValid(formValues).then((valid) => setDisabled(!valid)); //
+  }, [formValues]); //every time formValues is changed
 
+  //what shows on the page. map over so you can go through the array of users to display, pass details prop for userinfo. Shows components on the page
   return (
     <div className="App">
       <header>
@@ -98,7 +107,7 @@ function App() {
         submit={formSubmit}
         change={formChange}
         disabled={disabled}
-        error={error}
+        error={formError}
       />
       <div className="mapped-users">
         {users.map((user) => {
