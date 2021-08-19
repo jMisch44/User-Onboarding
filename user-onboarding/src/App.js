@@ -8,21 +8,15 @@ import User from "./components/User";
 
 const initialFormValues = {
   userName: "",
-  first_name: "",
-  last_name: "",
   email: "",
   password: "",
-  role: "",
   TOS: false,
 };
 
 const initialFormErrors = {
   userName: "",
-  first_name: "",
-  last_name: "",
   email: "",
   password: "",
-  role: "",
 };
 const initialUsers = [];
 const initialDisabled = false;
@@ -75,11 +69,8 @@ function App() {
     //creating the new item
     const newUser = {
       userName: formValues.userName.trim(),
-      first_name: formValues["first_name"].trim(),
-      last_name: formValues["last_name"].trim(),
       email: formValues.email.trim(),
       password: formValues.password.trim(),
-      role: formValues.role,
       TOS: true,
     };
     postNewUser(newUser); //invoking postNewUser (the post request), with the newUser as argument

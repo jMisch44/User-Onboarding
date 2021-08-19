@@ -30,24 +30,6 @@ export default function Form(props) {
           />
         </label>
         <label>
-          <div className="input-label">First Name</div>
-          <input
-            type="text"
-            value={values["first_name"]}
-            name="first_name"
-            onChange={onChange}
-          />
-        </label>
-        <label>
-          <div className="input-label">Last Name</div>
-          <input
-            type="text"
-            value={values["last_name"]}
-            name="last_name"
-            onChange={onChange}
-          />
-        </label>
-        <label>
           <div className="input-label">Email</div>
           <input
             type="text"
@@ -64,16 +46,6 @@ export default function Form(props) {
             name="password"
             onChange={onChange}
           />
-        </label>
-        <label>
-          <div className="input-label"> Role</div>
-          <select>
-            <option value="">--Select a Role--</option>
-            <option value="Student">Student</option>
-            <option value="Teacher">Teacher</option>
-            <option value="Administrator">Administrator</option>
-            <option value="Staff Member">Staff Member</option>
-          </select>
         </label>
         <label>
           Terms of Service

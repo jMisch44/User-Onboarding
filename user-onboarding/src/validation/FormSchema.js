@@ -6,10 +6,6 @@ const formSchema = yup.object().shape({
     .trim()
     .required("user name is a required field")
     .min(3, "user name must be 3 characters long"),
-  first_name: yup.string().trim(),
-  // .required("First Name is required"),
-  last_name: yup.string().trim(),
-  // .required("Last Name is required"),
   email: yup
     .string()
     .trim()
@@ -19,13 +15,7 @@ const formSchema = yup.object().shape({
     .string()
     .trim()
     .min(6, "password must be at least 6 characters long"),
-  role: yup
-    .string(),
-    // .oneOf(
-    //   ["Student", "Teacher", "Administrator", "Staff Member"],
-    //   "role is required"
-    // ),
-  TOS: yup.boolean().oneOf([true])
+  TOS: yup.boolean().oneOf([true]),
 });
 
 export default formSchema;
