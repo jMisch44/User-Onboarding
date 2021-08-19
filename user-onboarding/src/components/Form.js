@@ -14,10 +14,12 @@ export default function Form(props) {
 
   return (
     <form className="whole-form-container" onSubmit={onSubmit}>
-      <h2>Login-in Form</h2>
-      <div className="form-inputs">
+      <div className="left-form-container">
+        <h2>Login-in Form</h2>
+      </div>
+      <div className="right-form-container">
         <label>
-          userName
+          <div className="input-label">User Name</div>
           <input
             type="text"
             value={values.userName}
@@ -26,7 +28,7 @@ export default function Form(props) {
           />
         </label>
         <label>
-          First Name
+          <div className="input-label">First Name</div>
           <input
             type="text"
             value={values["first_name"]}
@@ -35,7 +37,7 @@ export default function Form(props) {
           />
         </label>
         <label>
-          Last Name
+          <div className="input-label">Last Name</div>
           <input
             type="text"
             value={values["last_name"]}
@@ -44,7 +46,7 @@ export default function Form(props) {
           />
         </label>
         <label>
-          Email
+          <div className="input-label">Email</div>
           <input
             type="text"
             value={values.email}
@@ -53,7 +55,7 @@ export default function Form(props) {
           />
         </label>
         <label>
-          Password
+          <div className="input-label">Password</div>
           <input
             type="text"
             value={values.password}
@@ -62,7 +64,7 @@ export default function Form(props) {
           />
         </label>
         <label>
-          Role
+          <div className="input-label"> Role</div>
           <select>
             <option value="">--Select a Role--</option>
             <option value="Student">Student</option>

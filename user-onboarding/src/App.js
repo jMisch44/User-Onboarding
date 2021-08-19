@@ -69,8 +69,8 @@ function App() {
   const formSubmit = () => {
     const newUser = {
       userName: formValues.userName.trim(),
-      first_name: formValues.first_name.trim(),
-      last_name: formValues.last_name.trim(),
+      first_name: formValues["first_name"].trim(),
+      last_name: formValues["last_name"].trim(),
       email: formValues.email.trim(),
       password: formValues.password.trim(),
       role: formValues.role,

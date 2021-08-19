@@ -23,7 +23,7 @@ const formSchema = yup.object().shape({
       ["Student", "Teacher", "Administrator", "Staff Member"],
       "role is required"
     ),
-  TOS: yup.boolean(),
+  TOS: yup.boolean().oneOf([true]),
 });
 
 export default formSchema;
