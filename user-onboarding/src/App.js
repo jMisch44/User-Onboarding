@@ -62,7 +62,7 @@ function App() {
 
   const formSubmit = () => {
     const newUser = {
-      userName: formValues.username.trim(),
+      userName: formValues.userName.trim(),
       email: formValues.email.trim(),
       password: formValues.password.trim(),
       Terms: formValues.Terms,
@@ -85,7 +85,7 @@ function App() {
       </header>
 
       <Form
-        values={users}
+        values={formValues}
         submit={formSubmit}
         change={formChange}
         disabled={disabled}
