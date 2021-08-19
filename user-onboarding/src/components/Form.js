@@ -26,6 +26,24 @@ export default function Form(props) {
           />
         </label>
         <label>
+          First Name
+          <input
+            type="text"
+            value={values["first_name"]}
+            name="first_name"
+            onChange={onChange}
+          />
+        </label>
+        <label>
+          Last Name
+          <input
+            type="text"
+            value={values["last_name"]}
+            name="last_name"
+            onChange={onChange}
+          />
+        </label>
+        <label>
           Email
           <input
             type="text"
@@ -42,6 +60,16 @@ export default function Form(props) {
             name="password"
             onChange={onChange}
           />
+        </label>
+        <label>
+          Role
+          <select>
+            <option value="">--Select a Role--</option>
+            <option value="Student">Student</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Administrator">Administrator</option>
+            <option value="Staff Member">Staff Member</option>
+          </select>
         </label>
         <label>
           Terms of Service

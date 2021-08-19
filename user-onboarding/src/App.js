@@ -8,8 +8,11 @@ import User from "./components/User";
 
 const initialFormValues = {
   userName: "",
+  first_name: "",
+  last_name: "",
   email: "",
   password: "",
+  role: "",
   TOS: false,
 };
 
@@ -17,6 +20,7 @@ const initialFormErrors = {
   userName: "",
   email: "",
   password: "",
+  role: "",
 };
 const initialUsers = [];
 const initialDisabled = false;
@@ -65,8 +69,11 @@ function App() {
   const formSubmit = () => {
     const newUser = {
       userName: formValues.userName.trim(),
+      first_name: formValues.first_name.trim(),
+      last_name: formValues.last_name.trim(),
       email: formValues.email.trim(),
       password: formValues.password.trim(),
+      role: formValues.role,
       TOS: formValues.TOS,
     };
     postNewUser(newUser);

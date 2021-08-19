@@ -12,6 +12,7 @@ function User(props) {
       <h2>{details.userName ? details.userName : details["first_name"]}</h2>
       <p>Email: {details.email}</p>
       <p>Password: {details.password}</p>
+      <p>Role: {details.role}</p>
     </div>
   );
 }
