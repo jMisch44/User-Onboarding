@@ -25,7 +25,7 @@ describe("User Onboarding App", () => {
     cy.contains("Submit").should("exist");
   });
 
-  describe("Filling out the inputs and clicking checkbox", () => {
+  describe("Filling out the inputs, clicking checkbox, and checking button", () => {
     it("Can navigate to the site", () => {
       cy.url().should("include", "localhost");
     });
@@ -50,23 +50,45 @@ describe("User Onboarding App", () => {
         .type("password")
         .should("have.value", "password");
 
-      TOSCheckbox().should("not.be.checked").click().should("be.checked");
+      TOSCheckbox().should("not.be.checked").check().should("be.checked");
     });
 
     it("The submit button enables when all required fields are fill out", () => {
       userNameInput().type("Qwerty");
       emailInput().type("email@email.com");
       passwordInput().type("password");
-      TOSCheckbox().click();
+      TOSCheckbox().check();
       submitBtn().should("not.be.disabled");
     });
   });
+  describe("Checking all input fields validations", () => {
+    it("Checking if validation for username input is working", () => {
+      userNameInput().type("Qw");
+      cy.contains("user name must be 3 characters long");
+    });
+
+    it("Checking if validation for email input is working", () => {
+      emailInput().type("MayB");
+      cy.contains("must be a valid email address");
+    });
+
+    it("Checking if validation for password input is working", () => {
+      passwordInput().type("Hi");
+      cy.contains("password must be at least 6 characters long");
+    });
+
+    it("Checking if validation for the Terms of Service checkbox is working", () => {
+      TOSCheckbox().check().uncheck();
+      cy.contains("this must be one of the following values: true");
+    });
+  });
+
   describe("Adding a new User", () => {
     it("Can submit a new member", () => {
       userNameInput().type("Qwerty");
       emailInput().type("email@email.com");
       passwordInput().type("password");
-      TOSCheckbox().click();
+      TOSCheckbox().check();
       submitBtn().click();
       cy.contains("Qwerty");
     });
@@ -74,7 +96,7 @@ describe("User Onboarding App", () => {
       userNameInput().type("Qwerty");
       emailInput().type("email@email.com");
       passwordInput().type("password");
-      TOSCheckbox().click();
+      TOSCheckbox().check();
       submitBtn().click();
       cy.contains("Qwerty");
       userNameInput().should("have.value", "");

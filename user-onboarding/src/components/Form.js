@@ -9,7 +9,6 @@ export default function Form(props) {
 
   const onChange = (event) => {
     //better to call handleChange
-    console.log(event.target);
     const { name, value, checked, type } = event.target; //can console log this. name, value, checked, type are the actual names in the DOM of event
     const valueToUse = type === "checkbox" ? checked : value; //if the type of input is a checkbox we want a true or false b/c value will come back null
     change(name, valueToUse);
