@@ -5,7 +5,7 @@ describe("User Onboarding App", () => {
   const userNameInput = () => cy.get("input[name=userName]");
   const emailInput = () => cy.get("input[name=email]");
   const passwordInput = () => cy.get("input[name=password]");
-  const TOSCheckbox = () => cy.get("input[name=TOS]");
+  const TOSCheckbox = () => cy.get("input[name=Terms]");
   const submitBtn = () => cy.get("button[id='submit-button']");
 
   it("Sanity check to make sure tests work", () => {

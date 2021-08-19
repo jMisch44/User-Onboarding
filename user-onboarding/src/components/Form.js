@@ -2,18 +2,16 @@ export default function Form(props) {
   const { values, submit, change, disabled, error } = props;
 
   const onSubmit = (event) => {
-    //better to call handleSubmit
     event.preventDefault();
     submit();
   };
 
   const onChange = (event) => {
-    //better to call handleChange
-    const { name, value, checked, type } = event.target; //can console log this. name, value, checked, type are the actual names in the DOM of event
-    const valueToUse = type === "checkbox" ? checked : value; //if the type of input is a checkbox we want a true or false b/c value will come back null
+    const { name, value, checked, type } = event.target;
+    const valueToUse = type === "checkbox" ? checked : value;
     change(name, valueToUse);
   };
-  //      anytime there is onSomething, that will raise the event and you have to pass an event handler. you want the event handler to be named correspondingly. onChange -> handleChange
+
   return (
     <form className="whole-form-container" onSubmit={onSubmit}>
       <div className="left-form-container">
@@ -26,7 +24,7 @@ export default function Form(props) {
             type="text"
             value={values.userName}
             name="userName"
-            onChange={onChange} //handles onChange
+            onChange={onChange}
           />
         </label>
         <label>
@@ -51,8 +49,8 @@ export default function Form(props) {
           Terms of Service
           <input
             type="checkbox"
-            name="TOS"
-            checked={values.TOS}
+            name="Terms"
+            checked={values.Terms}
             onChange={onChange}
           />
         </label>
@@ -64,7 +62,7 @@ export default function Form(props) {
         <div>{error.userName}</div>
         <div>{error.email}</div>
         <div>{error.password}</div>
-        <div>{error.TOS}</div>
+        <div>{error.Terms}</div>
       </div>
     </form>
   );

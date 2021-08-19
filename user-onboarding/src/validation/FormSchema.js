@@ -15,7 +15,7 @@ const formSchema = yup.object().shape({
     .string()
     .trim()
     .min(6, "password must be at least 6 characters long"),
-  TOS: yup.boolean().oneOf([true]),
+  Terms: yup.boolean().oneOf([true]),
 });
 
 export default formSchema;
